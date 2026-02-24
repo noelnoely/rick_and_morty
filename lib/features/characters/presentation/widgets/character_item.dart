@@ -40,7 +40,7 @@ class CharacterItem extends StatelessWidget {
                 Image.network(
                   width: double.infinity,
                   image,
-                  fit: .cover,
+                  fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return const Center(
                       child: Icon(Icons.broken_image),
@@ -60,7 +60,7 @@ class CharacterItem extends StatelessWidget {
                         right: 0,
                         left: 0,
                         child: Container(
-                          padding: const .all(12),
+                          padding: const EdgeInsetsGeometry.all(12),
                           color: Theme.of(
                             context,
                           ).colorScheme.secondary.withAlpha(210),
@@ -80,7 +80,7 @@ class CharacterItem extends StatelessWidget {
                                 child: Text(
                                   name,
                                   style: Theme.of(context).textTheme.titleLarge,
-                                  overflow: .ellipsis,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],

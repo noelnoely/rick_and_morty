@@ -16,7 +16,7 @@ class CharacterDetailPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
-          crossAxisAlignment: .start,
+          crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
             SizedBox(
@@ -33,7 +33,7 @@ class CharacterDetailPage extends StatelessWidget {
             const SizedBox(height: 24),
 
             Column(
-              crossAxisAlignment: .start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   character.name,

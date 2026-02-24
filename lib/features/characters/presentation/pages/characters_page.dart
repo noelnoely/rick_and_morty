@@ -68,7 +68,7 @@ class CharactersPage extends StatelessWidget {
                     ),
                     SliverToBoxAdapter(
                       child: Padding(
-                        padding: const .all(12),
+                        padding: const EdgeInsetsGeometry.all(12),
                         child: Row(
                           children: [
                             OutlinedButton(
