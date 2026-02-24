@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:rick_and_morty/features/characters/characters.dart';
 
-
 sealed class CharactersState extends Equatable {
   const CharactersState();
 
@@ -19,10 +18,20 @@ final class CharactersLoading extends CharactersState {
 
 final class CharactersLoaded extends CharactersState {
   final List<Character> characters;
-  const CharactersLoaded({required this.characters});
+  final int currentPage;
+  final int totalPages;
+  const CharactersLoaded({
+    required this.characters,
+    required this.currentPage,
+    required this.totalPages,
+  });
 
   @override
-  List<Object?> get props => [characters];
+  List<Object?> get props => [
+    characters,
+    currentPage,
+    totalPages,
+  ];
 }
 
 final class CharactersError extends CharactersState {

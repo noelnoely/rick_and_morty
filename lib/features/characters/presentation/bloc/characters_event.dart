@@ -7,6 +7,13 @@ sealed class CharactersEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-final class CharactersRequested extends CharactersEvent {
-  const CharactersRequested();
+final class CharactersPageRequested extends CharactersEvent {
+  final int page;
+  const CharactersPageRequested(this.page);
+  @override
+  List<Object?> get props => [page];
+}
+
+final class CharactersRetryRequested extends CharactersEvent {
+  const CharactersRetryRequested();
 }

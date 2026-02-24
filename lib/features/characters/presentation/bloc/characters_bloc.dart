@@ -1,22 +1,63 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rick_and_morty/core/error/failure.dart';
 import 'package:rick_and_morty/features/characters/characters.dart';
 
 class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   final CharacterRepository repository;
+  int _lastRequestedPage = 1;
   CharactersBloc(this.repository) : super(const CharactersInitial()) {
-    on<CharactersRequested>(_onCharactersRequested);
+    on<CharactersPageRequested>(_onCharactersNextPageRequested);
+    on<CharactersRetryRequested>(_onRetryRequested);
   }
 
-  void _onCharactersRequested(
-    CharactersRequested event,
+  Future<void> _onCharactersNextPageRequested(
+    CharactersPageRequested event,
     Emitter<CharactersState> emit,
   ) async {
+    _lastRequestedPage = event.page;
     emit(const CharactersLoading());
+
     try {
-      final characters = await repository.getCharacters(1);
-      emit(CharactersLoaded(characters: characters));
-    } catch (e) {
-      emit(CharactersError(message: e.toString()));
+      final response = await repository.getCharacters(event.page);
+      emit(
+        CharactersLoaded(
+          characters: response.characters,
+          currentPage: event.page,
+          totalPages: response.totalPages,
+        ),
+      );
+    } on Failure catch (failure) {
+      emit(
+        CharactersError(
+          message: _mapFailureToMessage(failure),
+        ),
+      );
+    } catch (_) {
+      emit(
+        const CharactersError(message: "Something went wrong."),
+      );
+    }
+  }
+
+  Future<void> _onRetryRequested(
+    CharactersRetryRequested event,
+    Emitter<CharactersState> emit,
+  ) async {
+    add(CharactersPageRequested(_lastRequestedPage));
+  }
+
+  String _mapFailureToMessage(Failure failure) {
+    switch (failure) {
+      case TooManyRequestsFailure():
+        return "Too many requests. Please wait a moment.";
+      case ServerFailure():
+        return "Server error. Try again later.";
+      case ClientFailure():
+        return "Request error. Please try again.";
+      case NetworkFailure():
+        return "No internet connection.";
+      default:
+        return "Something went wrong.";
     }
   }
 }
