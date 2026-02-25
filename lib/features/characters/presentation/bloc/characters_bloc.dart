@@ -1,13 +1,26 @@
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty/core/error/failure.dart';
 import 'package:rick_and_morty/features/characters/characters.dart';
+import 'package:stream_transform/stream_transform.dart';
+
+const throttleDuration = Duration(milliseconds: 300);
+
+EventTransformer<E> throttleDroppable<E>(Duration duration) {
+  return (events, mapper) {
+    return droppable<E>().call(events.throttle(duration), mapper);
+  };
+}
 
 class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   final CharacterRepository repository;
   int _lastRequestedPage = 1;
   String _lastQuery = '';
   CharactersBloc(this.repository) : super(const CharactersInitial()) {
-    on<CharactersPageRequested>(_onCharactersNextPageRequested);
+    on<CharactersPageRequested>(
+      _onCharactersNextPageRequested,
+      transformer: throttleDroppable(throttleDuration),
+    );
     on<CharactersRetryRequested>(_onRetryRequested);
   }
 

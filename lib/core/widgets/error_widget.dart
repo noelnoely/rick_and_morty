@@ -12,31 +12,33 @@ class AppErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            "assets/images/rm_failure.png",
-          ),
-          Text(
-            message,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          const SizedBox(height: 12),
-          OutlinedButton.icon(
-            onPressed: onRetry,
-            icon: Icon(
-              Icons.refresh_outlined,
-              color: Theme.of(context).colorScheme.onSurface,
+    return SingleChildScrollView(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              "assets/images/rm_failure.png",
             ),
-            label: Text(
-              "Retry",
-              style: Theme.of(context).textTheme.bodyLarge,
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-          ),
-        ],
+            const SizedBox(height: 12),
+            OutlinedButton.icon(
+              onPressed: onRetry,
+              icon: Icon(
+                Icons.refresh_outlined,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              label: Text(
+                "Retry",
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

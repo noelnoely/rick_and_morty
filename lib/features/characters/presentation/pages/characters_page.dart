@@ -17,11 +17,13 @@ class CharactersPage extends StatefulWidget {
 
 class _CharactersPageState extends State<CharactersPage> {
   late final TextEditingController _controller;
+  late final ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
     _controller = TextEditingController();
+    _scrollController = ScrollController();
   }
 
   @override
@@ -30,7 +32,18 @@ class _CharactersPageState extends State<CharactersPage> {
       create: (context) =>
           getIt<CharactersBloc>()
             ..add(const CharactersPageRequested(page: 1, query: "")),
-      child: BlocBuilder<CharactersBloc, CharactersState>(
+      child: BlocConsumer<CharactersBloc, CharactersState>(
+        listenWhen: (previous, current) =>
+            previous is CharactersLoaded &&
+            current is CharactersLoaded &&
+            previous.currentPage != current.currentPage,
+        listener: (context, state) {
+          _scrollController.animateTo(
+            0,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+          );
+        },
         builder: (context, state) {
           return switch (state) {
             CharactersLoading() || CharactersInitial() => const Center(
@@ -55,6 +68,7 @@ class _CharactersPageState extends State<CharactersPage> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: CustomScrollView(
+                  controller: _scrollController,
                   slivers: [
                     SliverToBoxAdapter(
                       child: Padding(
@@ -168,6 +182,7 @@ class _CharactersPageState extends State<CharactersPage> {
   @override
   void dispose() {
     _controller.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 }
