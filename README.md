@@ -68,7 +68,8 @@ Simple Flutter application working with the Rick & Morty REST API.
 
 
 - **Custom light and dark themes** 
-- **Hero animations between list and detail**  
+- **Hero animations between list and detail** 
+- **Debounced search** 
 
 ---
 ## 🚀 Run
