@@ -4,8 +4,8 @@ import 'package:rick_and_morty/app/app_settings.dart';
 import 'package:rick_and_morty/app/bloc/app_shell_bloc.dart';
 import 'package:rick_and_morty/app/bloc/app_shell_event.dart';
 import 'package:rick_and_morty/app/bloc/app_shell_state.dart';
-import 'package:rick_and_morty/features/categories/presentation/pages/categories_page.dart';
 import 'package:rick_and_morty/features/characters/presentation/pages/characters_page.dart';
+import 'package:rick_and_morty/features/episodes/presentation/pages/episodes_page.dart';
 import 'package:rick_and_morty/features/favorites/presentation/pages/favorites_page.dart';
 import 'package:rick_and_morty/features/profile/presentation/pages/profile_page.dart';
 
@@ -38,7 +38,7 @@ class AppShell extends StatelessWidget {
             index: index,
             children: [
               const CharactersPage(),
-              const CategoriesPage(),
+              const EpisodesPage(),
               const FavoritesPage(),
               const ProfilePage(),
             ],
@@ -55,7 +55,7 @@ class AppShell extends StatelessWidget {
               ),
               const NavigationDestination(
                 icon: Icon(Icons.category_outlined),
-                label: "Categories",
+                label: "Episodes",
               ),
               const NavigationDestination(
                 icon: Icon(Icons.favorite_outline),

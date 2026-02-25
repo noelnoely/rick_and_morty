@@ -9,7 +9,11 @@ sealed class CharactersEvent extends Equatable {
 
 final class CharactersPageRequested extends CharactersEvent {
   final int page;
-  const CharactersPageRequested(this.page);
+  final String query;
+  const CharactersPageRequested({
+    required this.page,
+    required this.query,
+  });
   @override
   List<Object?> get props => [page];
 }

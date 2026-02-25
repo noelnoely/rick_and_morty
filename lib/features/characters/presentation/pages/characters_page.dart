@@ -8,14 +8,28 @@ import 'package:rick_and_morty/features/characters/presentation/widgets/characte
 import 'package:rick_and_morty/features/favorites/presentation/bloc/favorites_bloc.dart';
 import 'package:rick_and_morty/features/favorites/presentation/bloc/favorites_event.dart';
 
-class CharactersPage extends StatelessWidget {
+class CharactersPage extends StatefulWidget {
   const CharactersPage({super.key});
+
+  @override
+  State<CharactersPage> createState() => _CharactersPageState();
+}
+
+class _CharactersPageState extends State<CharactersPage> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) =>
-          getIt<CharactersBloc>()..add(const CharactersPageRequested(1)),
+      create: (context) =>
+          getIt<CharactersBloc>()
+            ..add(const CharactersPageRequested(page: 1, query: "")),
       child: BlocBuilder<CharactersBloc, CharactersState>(
         builder: (context, state) {
           return switch (state) {
@@ -42,6 +56,28 @@ class CharactersPage extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: CustomScrollView(
                   slivers: [
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: TextField(
+                          showCursor: true,
+                          cursorColor: Theme.of(context).colorScheme.onSurface,
+                          controller: _controller,
+                          decoration: InputDecoration(
+                            hintText: "Search character...",
+                            prefixIcon: const Icon(Icons.search),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          onChanged: (value) {
+                            context.read<CharactersBloc>().add(
+                              CharactersPageRequested(page: 1, query: value),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
                     SliverGrid(
                       delegate: SliverChildBuilderDelegate((context, index) {
                         final character = characters[index];
@@ -87,7 +123,8 @@ class CharactersPage extends StatelessWidget {
                                   ? () {
                                       context.read<CharactersBloc>().add(
                                         CharactersPageRequested(
-                                          currentPage - 1,
+                                          page: currentPage - 1,
+                                          query: state.currentQuery,
                                         ),
                                       );
                                     }
@@ -105,7 +142,8 @@ class CharactersPage extends StatelessWidget {
                                   ? () {
                                       context.read<CharactersBloc>().add(
                                         CharactersPageRequested(
-                                          currentPage + 1,
+                                          page: currentPage + 1,
+                                          query: state.currentQuery,
                                         ),
                                       );
                                     }
@@ -126,5 +164,11 @@ class CharactersPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }

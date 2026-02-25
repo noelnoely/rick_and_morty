@@ -10,9 +10,15 @@ class CharacterRepositoryImpl implements CharacterRepository {
   CharacterRepositoryImpl(this.remoteDataSource);
 
   @override
-  Future<CharactersResponse> getCharacters(int page) async {
+  Future<CharactersResponse> getCharacters({
+    required int page,
+    required String query,
+  }) async {
     try {
-      final charactersResponse = await remoteDataSource.getCharacters(page);
+      final charactersResponse = await remoteDataSource.getCharacters(
+        page: page,
+        query: query,
+      );
 
       final characters = charactersResponse.characters
           .map(
@@ -43,7 +49,7 @@ class CharacterRepositoryImpl implements CharacterRepository {
         throw ServerFailure();
       }
       throw NetworkFailure();
-    } catch (_){
+    } catch (_) {
       throw UnknownFailure();
     }
   }

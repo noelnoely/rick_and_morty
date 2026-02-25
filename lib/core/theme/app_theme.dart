@@ -113,13 +113,13 @@ abstract class AppTextTheme {
         fontSize: 12,
         fontWeight: FontWeight.w500,
         height: 1.25,
-        color: cs.onSurfaceVariant,
+        color: cs.onSurface,
       ),
       labelMedium: TextStyle(
         fontSize: 11,
         fontWeight: FontWeight.w500,
         height: 1.2,
-        color: cs.onSurfaceVariant,
+        color: cs.onSurface,
       ),
     );
   }

@@ -20,10 +20,12 @@ final class CharactersLoaded extends CharactersState {
   final List<Character> characters;
   final int currentPage;
   final int totalPages;
+  final String currentQuery;
   const CharactersLoaded({
     required this.characters,
     required this.currentPage,
     required this.totalPages,
+    required this.currentQuery,
   });
 
   @override

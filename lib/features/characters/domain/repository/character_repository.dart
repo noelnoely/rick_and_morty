@@ -2,6 +2,9 @@ import 'package:rick_and_morty/features/characters/domain/entities/character.dar
 import 'package:rick_and_morty/features/characters/domain/entities/characters_response.dart';
 
 abstract class CharacterRepository {
-  Future<CharactersResponse> getCharacters(int page);
+  Future<CharactersResponse> getCharacters({
+    required int page,
+    required String query,
+  });
   Future<Character> getCharacterById(int id);
 }

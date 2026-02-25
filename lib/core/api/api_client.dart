@@ -10,10 +10,21 @@ class ApiClient {
         ),
       );
 
-  Future<Map<String, dynamic>> getCharacters(int page) async {
+  Future<Map<String, dynamic>> getCharacters({
+    required int page,
+    required String query,
+  }) async {
+    final Map<String, dynamic> queryParameters = {
+      "page": page,
+    };
+
+    if (query.isNotEmpty) {
+      queryParameters["name"] = query;
+    }
+
     final response = await _dio.get(
       "/character",
-      queryParameters: {"page": page},
+      queryParameters: queryParameters,
     );
 
     return response.data as Map<String, dynamic>;

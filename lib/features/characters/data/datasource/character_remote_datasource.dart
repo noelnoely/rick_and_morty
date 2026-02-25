@@ -7,8 +7,11 @@ class CharacterRemoteDataSource {
 
   const CharacterRemoteDataSource(this.apiClient);
 
-  Future<CharactersResponseModel> getCharacters(int page) async {
-    final response = await apiClient.getCharacters(page);
+  Future<CharactersResponseModel> getCharacters({
+    required int page,
+    required String query,
+  }) async {
+    final response = await apiClient.getCharacters(page: page, query: query);
 
     return CharactersResponseModel.fromJson(response);
   }

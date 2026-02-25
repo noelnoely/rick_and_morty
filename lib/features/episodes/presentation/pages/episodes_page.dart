@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
 
-class CategoriesPage extends StatelessWidget {
-  const CategoriesPage({super.key});
+class EpisodesPage extends StatelessWidget {
+  const EpisodesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text("Categories Page"),
+      child: Text("Episodes Page"),
     );
   }
 }

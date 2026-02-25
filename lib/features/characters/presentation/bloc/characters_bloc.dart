@@ -5,6 +5,7 @@ import 'package:rick_and_morty/features/characters/characters.dart';
 class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   final CharacterRepository repository;
   int _lastRequestedPage = 1;
+  String _lastQuery = '';
   CharactersBloc(this.repository) : super(const CharactersInitial()) {
     on<CharactersPageRequested>(_onCharactersNextPageRequested);
     on<CharactersRetryRequested>(_onRetryRequested);
@@ -15,15 +16,25 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     Emitter<CharactersState> emit,
   ) async {
     _lastRequestedPage = event.page;
-    emit(const CharactersLoading());
+    _lastQuery = event.query;
+
+    if (state is! CharactersLoaded) {
+      emit(const CharactersLoading());
+    }
 
     try {
-      final response = await repository.getCharacters(event.page);
+      final response = await repository.getCharacters(
+        page: event.page,
+        query: event.query,
+      );
+      print("QUERY: ${event.query}");
+      print("RESULT COUNT: ${response.characters.length}");
       emit(
         CharactersLoaded(
           characters: response.characters,
           currentPage: event.page,
           totalPages: response.totalPages,
+          currentQuery: event.query,
         ),
       );
     } on Failure catch (failure) {
@@ -43,7 +54,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     CharactersRetryRequested event,
     Emitter<CharactersState> emit,
   ) async {
-    add(CharactersPageRequested(_lastRequestedPage));
+    add(CharactersPageRequested(page: _lastRequestedPage, query: _lastQuery));
   }
 
   String _mapFailureToMessage(Failure failure) {
