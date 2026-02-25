@@ -51,7 +51,6 @@ class FavoritesPage extends StatelessWidget {
                             },
                           ),
                         ),
-
                         Expanded(
                           child: Column(
                             spacing: 8,
@@ -73,7 +72,6 @@ class FavoritesPage extends StatelessWidget {
                                     },
                                     radius: 6,
                                   ),
-
                                   Text(
                                     character.status,
                                     style: Theme.of(

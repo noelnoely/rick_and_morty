@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty/app/app_settings.dart';
 import 'package:rick_and_morty/app/app_shell.dart';
 import 'package:rick_and_morty/app/bloc/app_shell_bloc.dart';
-import 'package:rick_and_morty/app/router/app_router.dart';
+import 'package:rick_and_morty/core/router/app_router.dart';
 import 'package:rick_and_morty/core/di/injection.dart';
 import 'package:rick_and_morty/core/theme/app_theme.dart';
 import 'package:rick_and_morty/features/favorites/presentation/bloc/favorites_bloc.dart';

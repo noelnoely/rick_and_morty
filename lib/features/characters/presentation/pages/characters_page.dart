@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rick_and_morty/app/router/app_router.dart';
 import 'package:rick_and_morty/core/di/injection.dart';
+import 'package:rick_and_morty/core/router/app_router.dart';
 import 'package:rick_and_morty/core/widgets/error_widget.dart';
 import 'package:rick_and_morty/features/characters/characters.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/character_item.dart';
@@ -81,7 +81,6 @@ class _CharactersPageState extends State<CharactersPage> {
                     SliverGrid(
                       delegate: SliverChildBuilderDelegate((context, index) {
                         final character = characters[index];
-
                         final favoritesBloc = context.watch<FavoritesBloc>();
                         final isSelected = favoritesBloc.state.favorites.any(
                           (favorite) => favorite.id == character.id,

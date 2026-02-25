@@ -27,8 +27,6 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
         page: event.page,
         query: event.query,
       );
-      print("QUERY: ${event.query}");
-      print("RESULT COUNT: ${response.characters.length}");
       emit(
         CharactersLoaded(
           characters: response.characters,

@@ -16,36 +16,32 @@ class CharacterDetailPage extends StatelessWidget {
       (favorite) => favorite.id == character.id,
     );
     return Scaffold(
-      extendBodyBehindAppBar: false,
       appBar: AppBar(
         title: const Text("Character Detail"),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             spacing: 16,
             children: [
-              SizedBox(
-                width: double.maxFinite,
-                child: CharacterItem(
-                  id: character.id,
-                  image: character.image,
-                  name: character.name,
-                  status: character.status,
-                  onTap: () {},
-                  isDetail: true,
-                  isSelected: false,
-                  onFavoriteTap: () {},
-                  enabledFavoriteToggle: false,
-                ),
+              CharacterItem(
+                id: character.id,
+                image: character.image,
+                name: character.name,
+                status: character.status,
+                onTap: () {},
+                isDetail: true,
+                onFavoriteTap: () {},
+                enabledFavoriteToggle: false,
               ),
               Text(
                 character.name,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               Row(
+                spacing: 12,
                 children: [
                   CircleAvatar(
                     backgroundColor: switch (character.status) {
@@ -56,7 +52,6 @@ class CharacterDetailPage extends StatelessWidget {
                     },
                     radius: 8,
                   ),
-                  const SizedBox(width: 12),
                   Text(
                     "${character.status} - ${character.species}",
                     style: Theme.of(context).textTheme.bodyLarge,
@@ -78,6 +73,10 @@ class CharacterDetailPage extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ),
+              Text(
+                "Episods:",
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -85,15 +84,18 @@ class CharacterDetailPage extends StatelessWidget {
                     character.episodeUrls.length,
                     (index) {
                       return Container(
-                        margin: const EdgeInsets.only(left: 12),
+                        margin: const EdgeInsets.only(right: 12),
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.secondary,
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                        height: 50,
-                        width: 50,
-                        child: Text(
-                          (index + 1).toString(),
-                          style: Theme.of(context).textTheme.bodyMedium,
+                        height: 70,
+                        width: 70,
+                        child: Center(
+                          child: Text(
+                            (index + 1).toString(),
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
                         ),
                       );
                     },
