@@ -9,6 +9,7 @@ Simple Flutter application working with the Rick & Morty REST API.
 | Characters | Detail | Favorites |
 | :---: | :---: | :---: |
 | <img src="assets/screenshots/characters.png" width="250" /> | <img src="assets/screenshots/detail.png" width="250" /> | <img src="assets/screenshots/favorites.png" width="250" /> |
+| <img src="assets/screenshots/characters_dark.png" width="250" /> | <img src="assets/screenshots/detail_dark.png" width="250" /> | <img src="assets/screenshots/favorites_dark.png" width="250" /> |
 ---
 
 ## ✨ Features
@@ -33,8 +34,13 @@ Simple Flutter application working with the Rick & Morty REST API.
 </table>
 
 ---
-
 ## 🏗 Architecture
+<table>
+<tr>
+<td>
+<img src="assets/screenshots/empty.png" width="200"/>
+</td>
+<td>
 
 - **Feature-based structure** 
 - **Layered separation (Presentation / Domain / Data)**  
@@ -42,6 +48,9 @@ Simple Flutter application working with the Rick & Morty REST API.
 - **Repository pattern**  
 - **RemoteDataSource / LocalDataSource**  
 - **Dependency injection**  
+</td>
+</tr>
+</table>
 
 ---
 
@@ -57,20 +66,9 @@ Simple Flutter application working with the Rick & Morty REST API.
 
 ## 🎨 UI & UX
 
-<table>
-<tr>
-<td>
-<img src="assets/screenshots/lightmode.png" width="200"/>
-</td>
-<td>
 
 - **Custom light and dark themes** 
 - **Hero animations between list and detail**  
-
-</td>
-
-</tr>
-</table>
 
 ---
 ## 🚀 Run
