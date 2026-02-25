@@ -15,11 +15,15 @@ class AppTheme {
     );
 
     final textTheme = AppTextTheme.forScheme(colorScheme);
+    final appNavigationBarTheme = AppNavigationBarTheme.data(
+      colorScheme: colorScheme,
+      textTheme: textTheme,
+    );
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
       textTheme: textTheme,
-      fontFamily: "Roboto",
+      navigationBarTheme: appNavigationBarTheme,
     );
   }
 
@@ -37,11 +41,15 @@ class AppTheme {
     );
 
     final textTheme = AppTextTheme.forScheme(colorScheme);
-
+    final appNavigationBarTheme = AppNavigationBarTheme.data(
+      colorScheme: colorScheme,
+      textTheme: textTheme,
+    );
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
       textTheme: textTheme,
+      navigationBarTheme: appNavigationBarTheme,
     );
   }
 }
@@ -54,7 +62,7 @@ abstract class AppLightColors {
   static const error = Color(0xFFD63D2E);
   static const onError = Color(0xFFFFFFFF);
   static const surface = Color(0xFFFFFFFF);
-  static const onSurface = Color(0xFF424242);
+  static const onSurface = Color(0xFF848484);
 }
 
 abstract class AppDarkColors {
@@ -121,6 +129,41 @@ abstract class AppTextTheme {
         height: 1.2,
         color: cs.onSurface,
       ),
+    );
+  }
+}
+
+abstract class AppNavigationBarTheme {
+  static NavigationBarThemeData data({
+    required ColorScheme colorScheme,
+    required TextTheme textTheme,
+  }) {
+    final baseLabel = textTheme.labelLarge;
+
+    return NavigationBarThemeData(
+      backgroundColor: colorScheme.surface,
+      indicatorColor: Colors.transparent,
+      labelTextStyle: WidgetStateProperty.resolveWith((states) {
+        final isSelected = states.contains(WidgetState.selected);
+        return baseLabel?.copyWith(
+          color: isSelected ? colorScheme.onPrimary : colorScheme.onSurface,
+        );
+      }),
+      iconTheme: WidgetStateProperty.resolveWith((states) {
+        final isSelected = states.contains(WidgetState.selected);
+        return IconThemeData(
+          size: 24,
+          color: isSelected ? colorScheme.onPrimary : colorScheme.onSurface,
+        );
+      }),
+      overlayColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.pressed) ||
+            states.contains(WidgetState.hovered) ||
+            states.contains(WidgetState.focused)) {
+          return Colors.transparent;
+        }
+        return null;
+      }),
     );
   }
 }

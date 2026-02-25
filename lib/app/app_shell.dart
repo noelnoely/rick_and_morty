@@ -43,29 +43,40 @@ class AppShell extends StatelessWidget {
               const ProfilePage(),
             ],
           ),
-          bottomNavigationBar: NavigationBar(
-            onDestinationSelected: (value) {
-              context.read<AppShellBloc>().add(AppShellTabChanged(value));
-            },
-            selectedIndex: index,
-            destinations: [
-              const NavigationDestination(
-                icon: Icon(Icons.home_outlined),
-                label: "Characters",
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.zero,
+              border: Border(
+                top: BorderSide(
+                  width: 1,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
               ),
-              const NavigationDestination(
-                icon: Icon(Icons.category_outlined),
-                label: "Episodes",
-              ),
-              const NavigationDestination(
-                icon: Icon(Icons.favorite_outline),
-                label: "Favorites",
-              ),
-              const NavigationDestination(
-                icon: Icon(Icons.person_outline),
-                label: "Profile",
-              ),
-            ],
+            ),
+            child: NavigationBar(
+              onDestinationSelected: (value) {
+                context.read<AppShellBloc>().add(AppShellTabChanged(value));
+              },
+              selectedIndex: index,
+              destinations: [
+                const NavigationDestination(
+                  icon: Icon(Icons.home_outlined),
+                  label: "Characters",
+                ),
+                const NavigationDestination(
+                  icon: Icon(Icons.category_outlined),
+                  label: "Episodes",
+                ),
+                const NavigationDestination(
+                  icon: Icon(Icons.favorite_outline),
+                  label: "Favorites",
+                ),
+                const NavigationDestination(
+                  icon: Icon(Icons.person_outline),
+                  label: "Profile",
+                ),
+              ],
+            ),
           ),
         );
       },

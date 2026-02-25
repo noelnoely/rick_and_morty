@@ -66,7 +66,7 @@ class _CharactersPageState extends State<CharactersPage> {
               :final totalPages,
             ) =>
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: CustomScrollView(
                   controller: _scrollController,
                   slivers: [

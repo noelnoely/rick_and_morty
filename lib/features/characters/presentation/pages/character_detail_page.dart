@@ -83,6 +83,11 @@ class CharacterDetailPage extends StatelessWidget {
                   children: List.generate(
                     character.episodeUrls.length,
                     (index) {
+                      final episodeNumbers = character.episodeUrls
+                          .map(
+                            (e) => Uri.parse(e).pathSegments.last,
+                          )
+                          .toList();
                       return Container(
                         margin: const EdgeInsets.only(right: 12),
                         decoration: BoxDecoration(
@@ -93,7 +98,7 @@ class CharacterDetailPage extends StatelessWidget {
                         width: 70,
                         child: Center(
                           child: Text(
-                            (index + 1).toString(),
+                            episodeNumbers[index],
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ),

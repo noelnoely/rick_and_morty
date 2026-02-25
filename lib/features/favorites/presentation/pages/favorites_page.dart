@@ -20,7 +20,7 @@ class FavoritesPage extends StatelessWidget {
                 child: AppEmptyWidget(),
               )
             : Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: ListView.separated(
                   separatorBuilder: (context, index) =>
                       const SizedBox(height: 16),
@@ -32,7 +32,7 @@ class FavoritesPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 150,
+                          width: 130,
                           child: CharacterItem(
                             enableHero: false,
                             image: character.image,
