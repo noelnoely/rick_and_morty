@@ -8,6 +8,7 @@ import 'package:rick_and_morty/features/favorites/data/datasource/favorites_loca
 import 'package:rick_and_morty/features/favorites/data/models/favorite_character_hive_model.dart';
 import 'package:rick_and_morty/features/favorites/data/repository/favorites_repository_impl.dart';
 import 'package:rick_and_morty/features/favorites/domain/repository/favorites_repository.dart';
+import 'package:rick_and_morty/features/favorites/presentation/bloc/favorites_bloc.dart';
 
 final getIt = GetIt.instance;
 
@@ -36,5 +37,9 @@ void setupDependencies() {
 
   getIt.registerLazySingleton<FavoritesRepository>(
     () => FavoritesRepositoryImpl(getIt<FavoritesLocalDataSource>()),
+  );
+
+  getIt.registerFactory<FavoritesBloc>(
+    () => FavoritesBloc(getIt<FavoritesRepository>()),
   );
 }

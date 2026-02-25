@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class AppErrorWidget extends StatelessWidget {
   final String message;
@@ -19,14 +18,16 @@ class AppErrorWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          SvgPicture.asset(
-            "assets/images/ricksanchez.svg",
-            height: 300,
+          Image.asset(
+            "assets/images/rm_failure.png",
           ),
-          Text(
-            message,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headlineSmall,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 48),
+            child: Text(
+              message,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
           ),
           const SizedBox(height: 12),
           OutlinedButton.icon(
@@ -38,15 +39,6 @@ class AppErrorWidget extends StatelessWidget {
             label: Text(
               "Retry",
               style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            style: OutlinedButton.styleFrom(
-              side: const BorderSide(
-                color: Color(0xFFff9800),
-                width: 2,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(24),
-              ),
             ),
           ),
         ],

@@ -5,6 +5,8 @@ import 'package:rick_and_morty/core/di/injection.dart';
 import 'package:rick_and_morty/core/widgets/error_widget.dart';
 import 'package:rick_and_morty/features/characters/characters.dart';
 import 'package:rick_and_morty/features/characters/presentation/widgets/character_item.dart';
+import 'package:rick_and_morty/features/favorites/presentation/bloc/favorites_bloc.dart';
+import 'package:rick_and_morty/features/favorites/presentation/bloc/favorites_event.dart';
 
 class CharactersPage extends StatelessWidget {
   const CharactersPage({super.key});
@@ -43,6 +45,11 @@ class CharactersPage extends StatelessWidget {
                     SliverGrid(
                       delegate: SliverChildBuilderDelegate((context, index) {
                         final character = characters[index];
+
+                        final favoritesBloc = context.watch<FavoritesBloc>();
+                        final isSelected = favoritesBloc.state.favorites.any(
+                          (favorite) => favorite.id == character.id,
+                        );
                         return CharacterItem(
                           image: character.image,
                           name: character.name,
@@ -55,6 +62,10 @@ class CharactersPage extends StatelessWidget {
                               AppRoutes.characterDetail,
                               arguments: character,
                             );
+                          },
+                          isSelected: isSelected,
+                          onFavoriteTap: () {
+                            favoritesBloc.add(FavoriteToggled(character));
                           },
                         );
                       }, childCount: characters.length),
